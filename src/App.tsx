@@ -1,24 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { Product } from "./types/Product";
+import "./App.css";
+import Card from "./components/Card/Card";
 
 function App() {
+
+  const [products, setProducts] = useState<Product[]>([])
+  const cards = Array.from({ length: 20 });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://fakestoreapi.com/products"
+      );
+      const data = await response.json();
+      console.log(data);
+      setProducts(data)
+    }
+
+    fetchData();
+  },[]);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container-fluid">
+      <h1 className="text-center">My Shop</h1>
+      <div className="row">
+        {products.map((product, index) => (
+          <Card item={product} index={index}/>
+        ))}
+      </div>
     </div>
   );
 }
