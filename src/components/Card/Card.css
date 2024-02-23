@@ -36,3 +36,8 @@
     max-width: 200px;
     height: 3rem;
   }
+
+.card .prod-quantity {
+  align-items: center;
+  font-size: 25px;
+}
