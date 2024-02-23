@@ -3,11 +3,14 @@ import { Product } from "./types/Product";
 import "./App.css";
 import Card from "./components/Card/Card";
 import Navbar from "./components/Navbar/Navbar";
+import Carousel from "./components/Carousel/Carousel";
 
 function App() {
 
   const [products, setProducts] = useState<Product[]>([]);
   const [totQuantity, setTotQuantity] = useState<number>(0);
+  const [totPrice, setTotPrice] = useState<number>(0);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,7 +18,6 @@ function App() {
         "https://fakestoreapi.com/products"
       );
       const data = await response.json();
-      console.log(data);
       setProducts([...data].map(product => ({...product, quantity: 0})));
     }
 
@@ -23,21 +25,23 @@ function App() {
   },[]);
 
   useEffect(() => {
-    setTotQuantity(products.reduce((acc, product) => acc + product.quantity, 0))
+    setTotQuantity(products.reduce((acc, product) => acc + product.quantity, 0));
+    setTotPrice(products.reduce((acc, product) => acc + product.price * product.quantity, 0));
   },[products])
 
-  console.log(products)
 
   return (
     <div className="container-fluid">
-      <Navbar totQuantity={totQuantity}/>
-      <h1 className="text-center">My Shop</h1>
+      <Navbar totQuantity={totQuantity} price={totPrice}/>
+      <Carousel />
       <div className="row">
-        {products.map((product, index) => {
+        {
+        products.map((product, index) => {
           return (
-              <Card item={product} index={index} setProducts={setProducts}/>
+              <Card item={product} index={index} setProducts={setProducts} />
             )
-        })}
+        })
+        }
       </div>
     </div>
   );

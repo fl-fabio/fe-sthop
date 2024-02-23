@@ -1,13 +1,14 @@
 import React from "react";
-import './Navbar.css';
+import "./Navbar.css";
 
 type NavbarProps = {
-    totQuantity: number;
-}
+  totQuantity: number;
+  price: number;
+};
 
-const Navbar = ({totQuantity}:  NavbarProps) => {
+const Navbar = ({ totQuantity, price }: NavbarProps) => {
   return (
-    <div>
+    <div className="nav-margin">
       <nav className="navbar navbar-expand-lg fixed-top bg-body-tertiary">
         <div className="container-fluid">
           <a className="navbar-brand" href={"/"}>
@@ -41,12 +42,22 @@ const Navbar = ({totQuantity}:  NavbarProps) => {
                   Pricing
                 </a>
               </li>
-
             </ul>
           </div>
-          <div>
-            {totQuantity}
-            <img className="cart" src="cart.png" alt="cart" />
+          <div className="d-flex align-items-center">
+            <div
+              className={totQuantity === 0 ? "hidden" : ""}
+            >{`${price.toFixed(2)} €`}</div>
+            <div className="cart-container">
+              <img className="cart" src="cart.png" alt="cart" />
+              <div
+                className={`cart-container_tot ${
+                  totQuantity === 0 ? "hidden" : ""
+                }`}
+              >
+                {totQuantity === 0 ? "" : totQuantity}
+              </div>
+            </div>
           </div>
         </div>
       </nav>

@@ -13,8 +13,7 @@ const Card = ({ item, index, setProducts}: CardProps) => {
 useEffect(() => {
     setProducts((prev: Product[]) => {
       const updateProduct = [...prev];
-      updateProduct[index] = {...prev[index], quantity: quantity};
-      console.log(quantity)
+      updateProduct[index] = {...updateProduct[index], quantity: quantity};
       return updateProduct;
     });
   }, [index, quantity, setProducts]) 
