@@ -1,5 +1,5 @@
 import React from "react";
-import './Carousel.css';
+import "./Carousel.css";
 
 const Carousel = () => {
   return (
@@ -29,13 +29,43 @@ const Carousel = () => {
         </div>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img src="https://picsum.photos/id/237/200/300" className="d-block w-100 height-80" alt="..." />
+            <img
+              src="https://picsum.photos/id/237/1200/800"
+              className="d-block w-100 height-80"
+              alt="..."
+            />
+            <div className="carousel-caption d-none d-md-block">
+              <h5>First slide label</h5>
+              <p>
+                Some representative placeholder content for the first slide.
+              </p>
+            </div>
           </div>
           <div className="carousel-item">
-            <img src="https://picsum.photos/id/238/200/300" className="d-block w-100 height-80" alt="..." />
+            <img
+              src="https://picsum.photos/id/238/1200/800"
+              className="d-block w-100 height-80"
+              alt="..."
+            />
+            <div className="carousel-caption d-none d-md-block">
+              <h5>First slide label</h5>
+              <p>
+                Some representative placeholder content for the first slide.
+              </p>
+            </div>
           </div>
           <div className="carousel-item">
-            <img src="https://picsum.photos/id/239/200/300" className="d-block w-100 height-80" alt="..." />
+            <img
+              src="https://picsum.photos/id/239/1200/800"
+              className="d-block w-100 height-80"
+              alt="..."
+            />
+            <div className="carousel-caption d-none d-md-block">
+              <h5>First slide label</h5>
+              <p>
+                Some representative placeholder content for the first slide.
+              </p>
+            </div>
           </div>
         </div>
         <button
