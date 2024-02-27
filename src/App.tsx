@@ -1,49 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { Product } from "./types/Product";
+import React, { useState, ChangeEvent } from "react";
 import "./App.css";
-import Card from "./components/Card/Card";
-import Navbar from "./components/Navbar/Navbar";
-import Carousel from "./components/Carousel/Carousel";
+import Button from "./components/Button/Button";
+import ContainerFluid from "./components/ContainerFluid/ContainerFluid";
+
 
 function App() {
 
-  const [products, setProducts] = useState<Product[]>([]);
-  const [totQuantity, setTotQuantity] = useState<number>(0);
-  const [totPrice, setTotPrice] = useState<number>(0);
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        "https://fakestoreapi.com/products"
-      );
-      const data = await response.json();
-      setProducts([...data].map(product => ({...product, quantity: 0})));
+  const [padding, setPadding] = useState<number>(0)
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setPadding(Number(event.target.value));
     }
-
-    fetchData();
-  },[]);
-
-  useEffect(() => {
-    setTotQuantity(products.reduce((acc, product) => acc + product.quantity, 0));
-    setTotPrice(products.reduce((acc, product) => acc + product.price * product.quantity, 0));
-  },[products])
-
-
   return (
-    <div className="container-fluid">
-      <Navbar totQuantity={totQuantity} price={totPrice}/>
-      <Carousel />
-      <div className="row">
-        {
-        products.map((product, index) => {
-          return (
-              <Card item={product} index={index} setProducts={setProducts} />
-            )
-        })
-        }
-      </div>
-    </div>
+    <ContainerFluid>
+              <Button>primary</Button>
+              <Button backColor="secondary" padding="12">secondary</Button>
+              <Button backColor="danger" padding="14">danger</Button>
+              <br />
+              <br />
+              <br />
+              <div className="d-flex align-items-baseline">
+                <div style={{lineHeight: '17px'}}>Change padding</div>
+                <input type="range" min="0" max="100" onChange={handleChange} style={{marginLeft: '10px' }}/>
+              </div>
+              <br />
+              <div>
+              <Button backColor="primary" padding={padding.toString()}>Padding</Button>
+              </div>
+    </ContainerFluid>
+        
+
+
   );
 }
 
