@@ -2,15 +2,16 @@ import React, { useState, ChangeEvent } from "react";
 import "./App.css";
 import Button from "./components/Button/Button";
 import ContainerFluid from "./components/ContainerFluid/ContainerFluid";
+import SignUpForm from "./components/SignupForm/SignupForm";
 
 
 function App() {
 
-  const [padding, setPadding] = useState<number>(0)
+/*   const [padding, setPadding] = useState<number>(0)
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setPadding(Number(event.target.value));
-    }
-  return (
+    } */
+  return (/* 
     <ContainerFluid>
               <Button>primary</Button>
               <Button backColor="secondary" padding="12">secondary</Button>
@@ -26,8 +27,8 @@ function App() {
               <div>
               <Button backColor="primary" padding={padding.toString()}>Padding</Button>
               </div>
-    </ContainerFluid>
-        
+    </ContainerFluid> */
+        <SignUpForm />
 
 
   );
