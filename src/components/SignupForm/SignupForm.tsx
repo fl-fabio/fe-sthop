@@ -1,6 +1,8 @@
 import { useState, FormEvent, ChangeEvent, FC, useCallback, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
-type FormValues = {
+export type FormValues = {
+  id?: string;
   name: string;
   surname: string;
   role: 'pj' | 'ps' | 'dir';
@@ -25,6 +27,7 @@ const SignUpForm: FC = () => {
 
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate();
 
   const validateField = useCallback((fieldName: string, value: string ) => {
     const errors: FormErrors = {};
@@ -79,10 +82,13 @@ useEffect(() => {
     setSubmitted(true);
 
      if (Object.keys(formErrors).length) console.log(formErrors)
-    else console.log(formData);
+
+    else navigate('/handler');
+  
   };
 
   return (
+    <>
     <form onSubmit={handleSubmit}>
       <label>
         Name:
@@ -131,6 +137,8 @@ useEffect(() => {
       <br />
       <button type="submit">Submit</button>
     </form>
+
+    </>
   );
 };
 
