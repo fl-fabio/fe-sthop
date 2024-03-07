@@ -1,6 +1,5 @@
 import { useState, FormEvent, ChangeEvent, FC, useCallback, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-
+import useFetchUsers from '../../hooks/useFetchUsers';
 export type FormValues = {
   id?: string;
   name: string;
@@ -18,6 +17,8 @@ type FormErrors = {
   };
 
 const SignUpForm: FC = () => {
+  const {postRequest} = useFetchUsers('http://localhost:3001/users');
+
   const [formData, setFormData] = useState<FormValues>({
     name: '',
     surname: '',
@@ -27,7 +28,6 @@ const SignUpForm: FC = () => {
 
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
-  const navigate = useNavigate();
 
   const validateField = useCallback((fieldName: string, value: string ) => {
     const errors: FormErrors = {};
@@ -65,6 +65,8 @@ useEffect(() => {
   searchAllErrors();
 }, [formData, searchAllErrors]);
 
+
+
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -80,10 +82,9 @@ useEffect(() => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     setSubmitted(true);
-
-     if (Object.keys(formErrors).length) console.log(formErrors)
-
-    else navigate('/handler');
+     if (Object.keys(formErrors).length === 0) {
+      postRequest(formData);
+    }
   
   };
 
@@ -135,7 +136,7 @@ useEffect(() => {
         />
       </label>
       <br />
-      <button type="submit">Submit</button>
+      <button type="submit" className='btn btn-warning'>Submit</button>
     </form>
 
     </>
